@@ -1,55 +1,50 @@
-import java.time.Duration;
-import java.time.Instant;
 
 public class Fakultaet {
 
 
-	private static Instant start; 
-	private static Instant end; 
-	private static Duration duration; 
+	private static long start; 
+	private static long end; 
+	
+	private static int sum = 1200; 
+	private static int faku = 55; 
+	private static int pow = 55; 
 	
 	public static void main(String[] args) {
 		System.out.print("Summe rekursiv: ");
-		start = Instant.now(); 
-		long summeRekursiv = sum(12000);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(summeRekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long summeRekursiv = sum(sum);
+		end = System.nanoTime();
+		System.out.println(summeRekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 		System.out.print("Summe endrekursiv: ");
-		start = Instant.now(); 
-		long summeEndrekursiv = endSum(0, 12000);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(summeEndrekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long summeEndrekursiv = endSum(0, sum);
+		end = System.nanoTime();
+		System.out.println(summeEndrekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 		System.out.print("Fakultät rekursiv: ");
-		start = Instant.now(); 
-		long fakRekursiv = faku(35);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(fakRekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long fakRekursiv = faku(faku);
+		end = System.nanoTime();
+		System.out.println(fakRekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 		System.out.print("Fakultät endrekursiv: ");
-		start = Instant.now(); 
-		long fakEndRekursiv = endFaku(1, 35);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(fakEndRekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long fakEndRekursiv = endFaku(1, faku);
+		end = System.nanoTime();
+		System.out.println(fakEndRekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 		System.out.print("Hochfunktion rekursiv: ");
-		start = Instant.now(); 
-		long powfakRekursiv = powfak(2, 50);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(powfakRekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long powfakRekursiv = powfak(2, pow);
+		end = System.nanoTime();
+		System.out.println(powfakRekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 		System.out.print("Hochfunktion endrekursiv: ");
-		start = Instant.now(); 
-		long powfakEndrekursiv = endPowfak(1, 2, 50);
-		end = Instant.now(); 
-		duration = Duration.between(start, end); 
-		System.out.println(powfakEndrekursiv + ", berechnet in " + duration.toMillis() + " Millisekunden");
+		start = System.nanoTime();
+		long powfakEndrekursiv = endPowfak(1, 2, pow);
+		end = System.nanoTime();
+		System.out.println(powfakEndrekursiv + ", berechnet in " + (end - start) / 1000 + " Millisekunden");
 
 	}
 
