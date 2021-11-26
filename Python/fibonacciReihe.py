@@ -1,22 +1,22 @@
-def fibonacciReiheIterative(target):
+def fibonaccireiheiterative(target):
     last = 1
     current = 0
     for i in range(0, target): 
         current, last = current + last, current
     return current
 
-def fibonacciReiheRecursive(target):
+def fibonaccireiherecursive(target):
     if target == 0 or target == 1: 
         return target
-    return fibonacciReiheRecursive(target-2)+ fibonacciReiheRecursive(target-1)
+    return fibonaccireiherecursive(target-2)+ fibonaccireiherecursive(target-1)
 
-def fibonacciReiheEndrekursion(zahl, zahl2, target):
-    if target == 1: 
+def fibonaccireiheendrekursion(zahl, zahl2, target):
+    if target == 1:
         return zahl + zahl2
-    return fibonacciReiheEndrekursion(zahl + zahl2, zahl, target-1)
+    return fibonaccireiheendrekursion(zahl + zahl2, zahl, target-1)
 
 
 
-print(fibonacciReiheIterative(20)) 
-print(fibonacciReiheRecursive(20)) 
-print(fibonacciReiheEndrekursion(0, 1, 20)) 
+print(fibonaccireiheiterative(20)) 
+print(fibonaccireiherecursive(20)) 
+print(fibonaccireiheendrekursion(0, 1, 20)) 
