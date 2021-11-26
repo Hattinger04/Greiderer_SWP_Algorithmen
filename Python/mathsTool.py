@@ -8,6 +8,7 @@ class bcolors:
     OKCYAN = '\033[96m'
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
+    OPTIONS = '\u001b[37m'
     FAIL = '\033[91m'
     ENDC = '\033[0m'
     BOLD = '\033[1m'
@@ -70,6 +71,32 @@ kombinatorikString = """
 
 optionsString = "Options: "
 
+# Help Menues
+
+def menuehelp(): 
+    print()
+    print(bcolors.WARNING + "HELP: ")
+    print()
+    print(bcolors.OKGREEN)
+
+
+# Options Menues
+def menueoptions(): 
+    print()
+    print(bcolors.OPTIONS + "OPTIONS: ")
+    print("1: Calculator")
+    print("2: Sort a list")
+    print("3: Search value from a list")
+    print(bcolors.OKGREEN)
+
+def calcoptions(): 
+    print()
+    print(bcolors.OPTIONS + "OPTIONS: ")
+    print("1: Calc ")
+    print("2: Kombinatorik")
+    print("3: Fibonacci")
+    print(bcolors.OKBLUE)
+
 # Functions
 
 def binarysearch(arr, target):
@@ -91,15 +118,14 @@ def selectionsort(arr):
     while index < maximal: 
         minimal = index
         for i in range(index + 1, maximal): 
-            if arr[i] < arr[min]:
+            if arr[i] < arr[minimal]:
                 minimal = i
         arr[minimal], arr[index] = arr[index], arr[minimal]
         index = index + 1
     return arr
 
 
-def fibonaccireihe():
-    target = int(input("Bitte geben sie ihre Zahl ein, von der sie die Fibonacci Reihe berechnen möchten: ")) # still have to write smth about that (try / catch)
+def fibonaccireihe(target):
     last = 1
     current = 0
     for i in range(0, target): 
@@ -120,7 +146,7 @@ def fakultaet(product, base):
 def calculator(): 
     print("Calc")
 
-def clearConsole(command):
+def console(command):
     os.system(command)
 
 # Main Menue + Checks
@@ -134,21 +160,22 @@ def menue():
     print("3: Search value from a list")
 
     while(True):
-
         if not checkvalue(input(">> ")): 
             return 
 
 def checkvalue(userinput):
-    if(userinput == '1' or userinput.startswith("calc")): 
+    if((userinput.startswith('1') and len(userinput) <= 2)  or userinput.startswith("calc")): 
         menuecalculator()
-    elif(userinput == '2' or userinput.startswith("sort")): 
+    elif((userinput.startswith('2') and len(userinput) <= 2) or userinput.startswith("sort")): 
         menuesortlist()
-    elif(userinput == '3' or userinput.startswith("search") or userinput.startswith("suchen")): 
+    elif((userinput.startswith('3') and len(userinput) <= 2) or userinput.startswith("search") or userinput.startswith("suchen")): 
         menuesearchlist()
     elif(userinput.startswith("help")): 
         menuehelp()
+    elif(userinput.startswith("option")): 
+        menueoptions()
     elif(userinput == "clear" or userinput == "cls"): 
-        clearConsole(userinput)
+        console(userinput)
     elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
         return False
     return True
@@ -157,6 +184,7 @@ def checkvalue(userinput):
 
 def menuecalculator(): 
     print(bcolors.OKBLUE + calculatorString)
+    print(optionsString)
     print("1: Calc ")
     print("2: Kombinatorik")
     print("3: Fibonacci")
@@ -167,17 +195,19 @@ def menuecalculator():
              return 
 
 def checkcalculation(userinput):
-    if(userinput == '1' or userinput.startswith("calc") or userinput.startswith("rechner")): 
+    if((userinput.startswith('1') and len(userinput) <= 2) or userinput.startswith("calc") or userinput.startswith("rechner")): 
         calculator()
-    elif(userinput == '2' or userinput.startswith("kombi")): 
+    elif((userinput.startswith('2') and len(userinput) <= 2) or userinput.startswith("kombi")): 
         checkkombinatorik()
-    elif(userinput == '3' or userinput.startswith("fibonacci")): 
-        print("Ihr Ergebnis lautet: " + str(fibonaccireihe()))
+    elif((userinput.startswith('3') and len(userinput) <= 2) or userinput.startswith("fibonacci")): 
+        target = int(input("Bitte geben sie ihre Zahl ein, von der sie die Fibonacci Reihe berechnen möchten: "))    # still have to write smth about that (try / catch)
+        print("Ihr Ergebnis lautet: " + str(fibonaccireihe(target)))
     elif(userinput == "clear" or userinput == "cls"): 
-        clearConsole(userinput)
+        console(userinput)
+    elif(userinput.startswith("option")): 
+        calcoptions()
     elif(userinput.startswith("help")): 
         calculatorhelp()
-
     elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
         return False
     return True
@@ -227,9 +257,9 @@ def checkkombinatorik():
 
 
 def kombinatorikabfrage(userinput):
-    if(userinput == "1"): 
+    if((userinput.startswith('1') and len(userinput) <= 2)): 
         return Status.Yes
-    elif(userinput == "0"): 
+    elif(userinput.startswith('0')): 
         return Status.No
     elif(userinput.startswith == "exit"): 
         return Status.Exit
@@ -247,14 +277,47 @@ def menuesortlist():
 def menuesearchlist(): 
     print(bcolors.OKBLUE + searchString)
     print()
+    print(optionsString)
+    print("1: Nicht sortierte Reihe")
+    print("2: Sortierte Reihe")
+    while(True):
+        if not checksearchlist(input("#> ")): 
+            return 
 
-# Help Menue
 
-def menuehelp(): 
-    print()
-    print(bcolors.WARNING + "HELP: ")
-    print()
-    print(bcolors.OKGREEN)
+def checksearchlist(userinput): 
+    if((userinput.startswith('1') and len(userinput) <= 2) or (userinput.startswith('2') and len(userinput) <= 2)):
+        target = 0
+        trennung = input("Geben sie bitte die gewünschte Trennungsmethode ein, welche die einzelnen Werte der Liste trennen sollen: ")
+        try: 
+            target = int(input("Geben sie bitte den gesuchten Wert an: "))
+        except: 
+            print(bcolors.FAIL + "Eingabe des Suchwertes nicht erfolgreich!" + bcolors.OKBLUE) 
+            return True
+        arrUser = input("Geben sie nun bitte ihre Liste mit dem gewählten Zeichen getrennt an: ")
+        try: 
+            arr = arrUser.split(trennung)
+            arr = list(map(int, arr))
+        except:
+            print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKBLUE) 
+            return True
+        if userinput.startswith('1') and len(userinput) <= 2: 
+            arr = selectionsort(arr) 
+            
+        erfolg = binarysearch(arr, target)
+        if erfolg: 
+            print(bcolors.OKGREEN + "Der Wert existiert in der Liste!" + bcolors.OKBLUE)
+            return True
+        print(bcolors.WARNING + "Der Wert existiert NICHT in der Liste!" + bcolors.OKBLUE)
+    elif(userinput == "clear" or userinput == "cls"): 
+        console(userinput)
+    elif(userinput.startswith("help")): 
+        calculatorhelp()
+    elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
+        return False
 
-    
+    return True
+
+console("clear")
 menue()
+
