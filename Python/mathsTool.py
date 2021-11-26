@@ -4,9 +4,9 @@ from enum import Enum
 # Classes
 
 class bcolors:
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
     OKGREEN = '\033[92m'
+    OKCYAN = '\033[96m'
+    OKBLUE = '\033[94m'
     WARNING = '\033[93m'
     OPTIONS = '\u001b[37m'
     FAIL = '\033[91m'
@@ -77,7 +77,7 @@ def menuehelp():
     print()
     print(bcolors.WARNING + "HELP: ")
     print()
-    print(bcolors.OKGREEN)
+    print(bcolors.OKBLUE)
 
 
 # Options Menues
@@ -87,7 +87,7 @@ def menueoptions():
     print("1: Calculator")
     print("2: Sort a list")
     print("3: Search value from a list")
-    print(bcolors.OKGREEN)
+    print(bcolors.OKBLUE)
 
 def calcoptions(): 
     print()
@@ -95,7 +95,7 @@ def calcoptions():
     print("1: Calc ")
     print("2: Kombinatorik")
     print("3: Fibonacci")
-    print(bcolors.OKBLUE)
+    print(bcolors.OKGREEN)
 
 # Functions
 
@@ -152,7 +152,7 @@ def console(command):
 # Main Menue + Checks
 
 def menue(): 
-    print(bcolors.OKGREEN + nameString)
+    print(bcolors.OKBLUE + nameString)
     print()
     print(optionsString)
     print("1: Calculator")
@@ -183,7 +183,7 @@ def checkvalue(userinput):
 # Menue + Checks Calculator
 
 def menuecalculator(): 
-    print(bcolors.OKBLUE + calculatorString)
+    print(bcolors.OKGREEN + calculatorString)
     print(optionsString)
     print("1: Calc ")
     print("2: Kombinatorik")
@@ -191,7 +191,7 @@ def menuecalculator():
  
     while(True):
         if not checkcalculation(input("#> ")): 
-             print(bcolors.OKGREEN + "Menue: ")
+             print(bcolors.OKBLUE + "Menue: ")
              return 
 
 def checkcalculation(userinput):
@@ -216,7 +216,7 @@ def calculatorhelp():
     print()
     print(bcolors.WARNING + "HELP: ")
     print()
-    print(bcolors.OKBLUE)
+    print(bcolors.OKGREEN)
 
 def checkkombinatorik(): 
     print("Fragen zu Berechnung der Formel: ")
@@ -269,13 +269,23 @@ def kombinatorikabfrage(userinput):
 # Sort Menue
 
 def menuesortlist(): 
-    print(bcolors.OKBLUE + sortString)
-    print()
+    print(bcolors.OKGREEN + sortString)
+    trennung = input("Geben sie bitte die gewünschte Trennungsmethode ein, welche die einzelnen Werte der Liste trennen sollen: ")
+
+    arrUser = input("Geben sie nun bitte ihre Liste an (TRENNUNG beachten): ")
+    arr = []
+    try: 
+        arr = arrUser.split(trennung)
+    except:
+        print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKGREEN) 
+        return True
+
+    print(selectionsort(arr))
 
 # Search Menue
 
 def menuesearchlist(): 
-    print(bcolors.OKBLUE + searchString)
+    print(bcolors.OKGREEN + searchString)
     print()
     print(optionsString)
     print("1: Nicht sortierte Reihe")
@@ -292,23 +302,23 @@ def checksearchlist(userinput):
         try: 
             target = int(input("Geben sie bitte den gesuchten Wert an: "))
         except: 
-            print(bcolors.FAIL + "Eingabe des Suchwertes nicht erfolgreich!" + bcolors.OKBLUE) 
+            print(bcolors.FAIL + "Eingabe des Suchwertes nicht erfolgreich!" + bcolors.OKGREEN) 
             return True
-        arrUser = input("Geben sie nun bitte ihre Liste mit dem gewählten Zeichen getrennt an: ")
+        arrUser = input("Geben sie nun bitte ihre Liste an (TRENNUNG beachten): ")
         try: 
             arr = arrUser.split(trennung)
             arr = list(map(int, arr))
         except:
-            print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKBLUE) 
+            print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKGREEN) 
             return True
         if userinput.startswith('1') and len(userinput) <= 2: 
             arr = selectionsort(arr) 
             
         erfolg = binarysearch(arr, target)
         if erfolg: 
-            print(bcolors.OKGREEN + "Der Wert existiert in der Liste!" + bcolors.OKBLUE)
+            print(bcolors.OKBLUE + "Der Wert existiert in der Liste!" + bcolors.OKGREEN)
             return True
-        print(bcolors.WARNING + "Der Wert existiert NICHT in der Liste!" + bcolors.OKBLUE)
+        print(bcolors.WARNING + "Der Wert existiert NICHT in der Liste!" + bcolors.OKGREEN)
     elif(userinput == "clear" or userinput == "cls"): 
         console(userinput)
     elif(userinput.startswith("help")): 
