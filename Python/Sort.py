@@ -21,9 +21,9 @@ def selectionsort(arr):
     return arr
 
 print("Insertionsort")
-print(insertionsort([1,2,5,7,1,6,3]))
+print(insertionsort([1,2,5,7,1,6,3,5,2]))
 print()
 
 print("Selectionsort")
-print(selectionsort([1,2,5,7,1,6,3]))
+print(selectionsort([1,2,5,7,1,6,3,5,2]))
 print()
