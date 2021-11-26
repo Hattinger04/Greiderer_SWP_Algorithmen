@@ -1,26 +1,26 @@
 # Binary Search iterative:
 def binarySearchIterative(arr, target):
 
-    left = 0;
-    right = len(arr) - 1;
+    left = 0
+    right = len(arr) - 1
     while left <= right:
         middle = round((left + right) / 2)
         if arr[middle] == target:
-            return True;
+            return True
         elif target > arr[middle]:
-            left = middle + 1;
+            left = middle + 1
         else:
-            right = middle - 1;
-    return False;
+            right = middle - 1
+    return False
 
 # Binary Search rekursive:
 def binarySearchRecusive(arr, target, left, right):
 
     middle = round((left + right) / 2)
     if arr[middle] == target:
-        return True;
+        return True
     if left > right:
-        return False;
+        return False
 
     elif target > arr[middle]:
         return binarySearchRecusive(arr, target, middle + 1, right)
@@ -57,7 +57,7 @@ print(binarySearchRecusive([1,2,3,4,5, 6,7,8,9], 5, 0, 9))
 print()
 
 print("Fakultät")
-print(fakRecursive(5))
+print(fakRecursive(31) / (fakRecursive(2) * fakRecursive(29)))
 print(fakEndRecursive(1, 5))
 print()
 
