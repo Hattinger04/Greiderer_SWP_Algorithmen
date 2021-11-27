@@ -3,7 +3,7 @@ from enum import Enum
 
 # Classes
 
-class bcolors:
+class ConsoleColors:
     OKGREEN = '\033[92m'
     OKCYAN = '\033[96m'
     OKBLUE = '\033[94m'
@@ -75,27 +75,39 @@ optionsString = "Options: "
 
 def menuehelp(): 
     print()
-    print(bcolors.WARNING + "HELP: ")
+    print(ConsoleColors.WARNING + "HELP: ")
     print()
-    print(bcolors.OKBLUE)
+    print(ConsoleColors.OKBLUE)
 
+def calculatorhelp(): 
+    print()
+    print(ConsoleColors.WARNING + "HELP: ")
+    print()
+    print(ConsoleColors.OKGREEN)
+
+def calculationhelp(): 
+    print()
+    print(ConsoleColors.WARNING + "HELP: ")
+    print()
+    print(ConsoleColors.OKGREEN)
 
 # Options Menues
 def menueoptions(): 
     print()
-    print(bcolors.OPTIONS + "OPTIONS: ")
+    print(ConsoleColors.OPTIONS + optionsString)
     print("1: Calculator")
     print("2: Sort a list")
     print("3: Search value from a list")
-    print(bcolors.OKBLUE)
+    print(ConsoleColors.OKBLUE)
+
 
 def calcoptions(): 
     print()
-    print(bcolors.OPTIONS + "OPTIONS: ")
+    print(ConsoleColors.OPTIONS + optionsString)
     print("1: Calc ")
     print("2: Kombinatorik")
     print("3: Fibonacci")
-    print(bcolors.OKGREEN)
+    print(ConsoleColors.OKGREEN)
 
 # Functions
 
@@ -144,15 +156,24 @@ def fakultaet(product, base):
     return fakultaet(product * base, base - 1)
 
 def calculator(): 
-    print("Calc")
+    stringrechnung = input("Geben sie bitte nun ihre Rechnung an oder schreiben sie " \
+     + ConsoleColors.WARNING + "help/-h " + ConsoleColors.OKGREEN + "für eine Hilfestellung: ") 
+    if stringrechnung.startswith("help") or (stringrechnung.startswith("-h") and len(stringrechnung) <= 3): 
+        print(calculationhelp())
+        return 
+    try: 
+        stringrechnung = searchFaku(stringrechnung, "!")
+    except: 
+        print(ConsoleColors.FAIL + "Konnte nicht berechnet werden, versuche es erneut!" + ConsoleColors.OKGREEN)
+    print("Ihr Ergebnis lautet: " + str(eval(stringrechnung)))
 
-def console(command):
+def console(command):  
     os.system(command)
 
 # Main Menue + Checks
 
 def menue(): 
-    print(bcolors.OKBLUE + nameString)
+    print(ConsoleColors.OKBLUE + nameString)
     print()
     print(optionsString)
     print("1: Calculator")
@@ -176,14 +197,16 @@ def checkvalue(userinput):
         menueoptions()
     elif(userinput == "clear" or userinput == "cls"): 
         console(userinput)
-    elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
+    elif(str(userinput).startswith("back") or str(userinput).startswith("quit")): 
         return False
+    elif(str(userinput).startswith("exit")): 
+        exit()
     return True
 
 # Menue + Checks Calculator
 
 def menuecalculator(): 
-    print(bcolors.OKGREEN + calculatorString)
+    print(ConsoleColors.OKGREEN + calculatorString)
     print(optionsString)
     print("1: Calc ")
     print("2: Kombinatorik")
@@ -191,7 +214,7 @@ def menuecalculator():
  
     while(True):
         if not checkcalculation(input("#> ")): 
-             print(bcolors.OKBLUE + "Menue: ")
+             print(ConsoleColors.OKBLUE + "Menue: ")
              return 
 
 def checkcalculation(userinput):
@@ -208,15 +231,12 @@ def checkcalculation(userinput):
         calcoptions()
     elif(userinput.startswith("help")): 
         calculatorhelp()
-    elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
+    elif(str(userinput).startswith("back") or str(userinput).startswith("quit")): 
         return False
-    return True
+    elif(str(userinput).startswith("exit")): 
+        exit()
 
-def calculatorhelp(): 
-    print()
-    print(bcolors.WARNING + "HELP: ")
-    print()
-    print(bcolors.OKGREEN)
+    return True
 
 def checkkombinatorik(): 
     print("Fragen zu Berechnung der Formel: ")
@@ -269,23 +289,24 @@ def kombinatorikabfrage(userinput):
 # Sort Menue
 
 def menuesortlist(): 
-    print(bcolors.OKGREEN + sortString)
+    print(ConsoleColors.OKGREEN + sortString)
     trennung = input("Geben sie bitte die gewünschte Trennungsmethode ein, welche die einzelnen Werte der Liste trennen sollen: ")
 
     arrUser = input("Geben sie nun bitte ihre Liste an (TRENNUNG beachten): ")
     arr = []
     try: 
         arr = arrUser.split(trennung)
+        print(selectionsort(arr))
+        print(ConsoleColors.OKBLUE)
     except:
-        print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKGREEN) 
+        print(ConsoleColors.FAIL + "Erstellung der Liste nicht erfolgreich!" + ConsoleColors.OKBLUE)
         return True
 
-    print(selectionsort(arr))
 
 # Search Menue
 
 def menuesearchlist(): 
-    print(bcolors.OKGREEN + searchString)
+    print(ConsoleColors.OKGREEN + searchString)
     print()
     print(optionsString)
     print("1: Nicht sortierte Reihe")
@@ -302,23 +323,23 @@ def checksearchlist(userinput):
         try: 
             target = int(input("Geben sie bitte den gesuchten Wert an: "))
         except: 
-            print(bcolors.FAIL + "Eingabe des Suchwertes nicht erfolgreich!" + bcolors.OKGREEN) 
+            print(ConsoleColors.FAIL + "Eingabe des Suchwertes nicht erfolgreich!" + ConsoleColors.OKGREEN) 
             return True
         arrUser = input("Geben sie nun bitte ihre Liste an (TRENNUNG beachten): ")
         try: 
             arr = arrUser.split(trennung)
             arr = list(map(int, arr))
         except:
-            print(bcolors.FAIL + "Erstellung der Liste nicht erfolgreich!" + bcolors.OKGREEN) 
+            print(ConsoleColors.FAIL + "Erstellung der Liste nicht erfolgreich!" + ConsoleColors.OKGREEN) 
             return True
         if userinput.startswith('1') and len(userinput) <= 2: 
             arr = selectionsort(arr) 
             
         erfolg = binarysearch(arr, target)
         if erfolg: 
-            print(bcolors.OKBLUE + "Der Wert existiert in der Liste!" + bcolors.OKGREEN)
+            print(ConsoleColors.OKBLUE + "Der Wert existiert in der Liste!" + ConsoleColors.OKGREEN)
             return True
-        print(bcolors.WARNING + "Der Wert existiert NICHT in der Liste!" + bcolors.OKGREEN)
+        print(ConsoleColors.WARNING + "Der Wert existiert NICHT in der Liste!" + ConsoleColors.OKGREEN)
     elif(userinput == "clear" or userinput == "cls"): 
         console(userinput)
     elif(userinput.startswith("help")): 
@@ -327,6 +348,24 @@ def checksearchlist(userinput):
         return False
 
     return True
+
+def searchFaku(stringrechnung, zeichen): 
+        if stringrechnung.find(zeichen) != -1:          
+            try: 
+                faku = stringrechnung.rpartition(zeichen)[0]
+                zaehler = 1
+                value = 0
+                for i in reversed(faku): 
+                    if i.isnumeric(): 
+                        value = value + (int(i) * zaehler)
+                        zaehler = zaehler * 10
+                    else: 
+                        break
+                stringrechnung = stringrechnung.replace(stringrechnung.rpartition(zeichen)[0] + stringrechnung.rpartition(zeichen)[1], str(fakultaet(1, value)))
+            except ValueError: 
+                print(ConsoleColors.FAIL + "Werte für Fakultät falsch eingegeben, versuche es erneut!" + ConsoleColors.OKGREEN)
+        return stringrechnung
+
 
 console("clear")
 menue()
