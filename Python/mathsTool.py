@@ -361,10 +361,13 @@ def searchFaku(stringrechnung, zeichen):
                         zaehler = zaehler * 10
                     else: 
                         break
-                stringrechnung = stringrechnung.replace(stringrechnung.rpartition(zeichen)[0] + stringrechnung.rpartition(zeichen)[1], str(fakultaet(1, value)))
+                print(stringrechnung.rpartition(zeichen)[1])
+                stringrechnung = stringrechnung.replace(str(value) + stringrechnung.rpartition(zeichen)[1], str(fakultaet(1, value)))
             except ValueError: 
                 print(ConsoleColors.FAIL + "Werte für Fakultät falsch eingegeben, versuche es erneut!" + ConsoleColors.OKGREEN)
         return stringrechnung
+
+
 
 
 console("clear")
