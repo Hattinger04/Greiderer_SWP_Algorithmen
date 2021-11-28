@@ -22,6 +22,10 @@ class Status(Enum):
     
 # Big strings and global members
 
+variablen = {}
+zwischenvariable = ""
+willSafe = False
+
 calculatorString = """
   ______     ___       __        ______  __    __   __          ___   .___________.  ______   .______      
  /      |   /   \     |  |      /      ||  |  |  | |  |        /   \  |           | /  __  \  |   _  \     
@@ -162,10 +166,13 @@ def calculator():
         print(calculationhelp())
         return 
     try: 
+        stringrechnung = searchSafe(stringrechnung, "->")
         stringrechnung = searchFaku(stringrechnung, "!")
+        ergebnis = str(eval(stringrechnung))
+        print(ConsoleColors.WARNING + "Ihr Ergebnis lautet: " + ConsoleColors.BOLD + ConsoleColors.UNDERLINE + ergebnis + ConsoleColors.ENDC + ConsoleColors.OKGREEN)
+        makeSafe(ergebnis, "->")
     except: 
         print(ConsoleColors.FAIL + "Konnte nicht berechnet werden, versuche es erneut!" + ConsoleColors.OKGREEN)
-    print("Ihr Ergebnis lautet: " + str(eval(stringrechnung)))
 
 def console(command):  
     os.system(command)
@@ -349,8 +356,10 @@ def checksearchlist(userinput):
 
     return True
 
+# Search String Functions
+
 def searchFaku(stringrechnung, zeichen): 
-        if stringrechnung.find(zeichen) != -1:          
+        while stringrechnung.find(zeichen) != -1:          
             try: 
                 faku = stringrechnung.rpartition(zeichen)[0]
                 zaehler = 1
@@ -361,13 +370,35 @@ def searchFaku(stringrechnung, zeichen):
                         zaehler = zaehler * 10
                     else: 
                         break
-                print(stringrechnung.rpartition(zeichen)[1])
                 stringrechnung = stringrechnung.replace(str(value) + stringrechnung.rpartition(zeichen)[1], str(fakultaet(1, value)))
             except ValueError: 
                 print(ConsoleColors.FAIL + "Werte für Fakultät falsch eingegeben, versuche es erneut!" + ConsoleColors.OKGREEN)
         return stringrechnung
 
 
+def searchSafe(stringrechnung, zeichen):
+    global willSafe 
+    stringrechnung = stringrechnung.replace(" ", "")
+    if stringrechnung.find(zeichen) != -1: 
+            try: 
+                willSafe = True
+                zwischenvariable = stringrechnung.rpartition(zeichen)[2]
+                stringrechnung = stringrechnung.replace(stringrechnung.rpartition(zeichen)[1] + zwischenvariable, "")
+                print("Search + " + stringrechnung)
+            except ValueError: 
+                print(ConsoleColors.FAIL + "Werte für Speicherung der Variable falsch eingegeben, versuche es erneut!" + ConsoleColors.OKGREEN)
+    return stringrechnung
+
+
+def makeSafe(ergebnis, zeichen): 
+        global willSafe
+        if willSafe:
+            try: 
+                variablen[zwischenvariable.replace(" ", "")] = ergebnis
+                willSafe = False
+            except: 
+                print(ConsoleColors.FAIL + "Speicherung der Variable hat nicht funktioniert, versuche es erneut!" + ConsoleColors.OKGREEN)
+        return
 
 
 console("clear")
