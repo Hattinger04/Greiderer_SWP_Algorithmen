@@ -1,6 +1,8 @@
 import os
 from enum import Enum
 
+# TODO: Bei back/quit Menue anzeigen!
+
 # Classes
 
 class ConsoleColors:
@@ -96,6 +98,7 @@ def calculationhelp():
     print(ConsoleColors.OKGREEN)
 
 # Options Menues
+
 def menueoptions(): 
     print()
     print(ConsoleColors.OPTIONS + optionsString)
@@ -103,7 +106,6 @@ def menueoptions():
     print("2: Sort a list")
     print("3: Search value from a list")
     print(ConsoleColors.OKBLUE)
-
 
 def calcoptions(): 
     print()
@@ -133,13 +135,12 @@ def selectionsort(arr):
     index = 0
     while index < maximal: 
         minimal = index
-        for i in range(index + 1, maximal): 
+        for i in range(index + 1, maximal):
             if arr[i] < arr[minimal]:
                 minimal = i
         arr[minimal], arr[index] = arr[index], arr[minimal]
         index = index + 1
     return arr
-
 
 def fibonaccireihe(target):
     last = 1
@@ -147,7 +148,6 @@ def fibonaccireihe(target):
     for i in range(0, target): 
         current, last = current + last, current
     return current
-
 
 def hochfunktion(product, basis, exponent):
     if exponent == 0:
@@ -160,20 +160,23 @@ def fakultaet(product, base):
     return fakultaet(product * base, base - 1)
 
 def calculator(): 
-    stringrechnung = input("Geben sie bitte nun ihre Rechnung an oder schreiben sie " \
-     + ConsoleColors.WARNING + "help/-h " + ConsoleColors.OKGREEN + "für eine Hilfestellung:\n## ") 
-    if stringrechnung.startswith("help") or (stringrechnung.startswith("-h") and len(stringrechnung) <= 3): 
-        print(calculationhelp())
-        return 
-    try: 
-        stringrechnung = searchVariable(stringrechnung)
-        stringrechnung = searchSafe(stringrechnung, "->")
-        stringrechnung = searchFaku(stringrechnung, "!")
-        ergebnis = str(eval(stringrechnung))
-        print(ConsoleColors.WARNING + "Ihr Ergebnis lautet: " + ConsoleColors.BOLD + ConsoleColors.UNDERLINE + ergebnis + ConsoleColors.ENDC + ConsoleColors.OKGREEN)
-        makeSafe(ergebnis, "->")
-    except: 
-        print(ConsoleColors.FAIL + "Konnte nicht berechnet werden, versuche es erneut!" + ConsoleColors.OKGREEN)
+    while True: 
+        stringrechnung = input("Geben sie bitte nun ihre Rechnung an oder schreiben sie " \
+        + ConsoleColors.WARNING + "help/-h " + ConsoleColors.OKGREEN + "für eine Hilfestellung:\n## ") 
+        if stringrechnung.startswith("exit") or stringrechnung.startswith("back") or stringrechnung.startswith("quit"): 
+            return
+        if stringrechnung.startswith("help") or (stringrechnung.startswith("-h") and len(stringrechnung) <= 3): 
+            print(calculationhelp())
+            continue
+        try: 
+            stringrechnung = searchVariable(stringrechnung)
+            stringrechnung = searchSafe(stringrechnung, "->")
+            stringrechnung = searchFaku(stringrechnung, "!")
+            ergebnis = str(eval(stringrechnung))
+            print(ConsoleColors.WARNING + "Ihr Ergebnis lautet: " + ConsoleColors.BOLD + ConsoleColors.UNDERLINE + ergebnis + ConsoleColors.ENDC + ConsoleColors.OKGREEN)
+            makeSafe(ergebnis, "->")
+        except: 
+            print(ConsoleColors.FAIL + "Konnte nicht berechnet werden, versuche es erneut!" + ConsoleColors.OKGREEN)
 
 def console(command):  
     os.system(command)
@@ -220,7 +223,7 @@ def menuecalculator():
     print("2: Kombinatorik")
     print("3: Fibonacci")
  
-    while(True):
+    while True:
         if not checkcalculation(input("#> ")): 
              print(ConsoleColors.OKBLUE + "Menue: ")
              return 
@@ -283,7 +286,6 @@ def checkkombinatorik():
                 frage3 = input("Ist es eine ?(0) oder eine ?(1)? ")
                 state3 = kombinatorikabfrage(frage3)
 
-
 def kombinatorikabfrage(userinput):
     if((userinput.startswith('1') and len(userinput) <= 2)): 
         return Status.Yes
@@ -304,12 +306,10 @@ def menuesortlist():
     arr = []
     try: 
         arr = arrUser.split(trennung)
-        print(selectionsort(arr))
-        print(ConsoleColors.OKBLUE)
+        print(ConsoleColors.WARNING + ConsoleColors.BOLD + selectionsort(arr) + ConsoleColors.ENDC + ConsoleColors.OKBLUE)
     except:
         print(ConsoleColors.FAIL + "Erstellung der Liste nicht erfolgreich!" + ConsoleColors.OKBLUE)
         return True
-
 
 # Search Menue
 
@@ -321,8 +321,8 @@ def menuesearchlist():
     print("2: Sortierte Reihe")
     while(True):
         if not checksearchlist(input("#> ")): 
+            print(ConsoleColors.OKBLUE + "Menue: ")
             return 
-
 
 def checksearchlist(userinput): 
     if((userinput.startswith('1') and len(userinput) <= 2) or (userinput.startswith('2') and len(userinput) <= 2)):
@@ -345,17 +345,24 @@ def checksearchlist(userinput):
             
         erfolg = binarysearch(arr, target)
         if erfolg: 
-            print(ConsoleColors.OKBLUE + "Der Wert existiert in der Liste!" + ConsoleColors.OKGREEN)
+            print(ConsoleColors.WARNING + ConsoleColors.UNDERLINE + ConsoleColors.BOLD + "Der Wert existiert in der Liste!" + ConsoleColors.ENDC + ConsoleColors.OKGREEN)
             return True
         print(ConsoleColors.WARNING + "Der Wert existiert NICHT in der Liste!" + ConsoleColors.OKGREEN)
     elif(userinput == "clear" or userinput == "cls"): 
         console(userinput)
     elif(userinput.startswith("help")): 
         calculatorhelp()
-    elif(str(userinput).startswith("exit") or str(userinput).startswith("quit")): 
+    elif(str(userinput).startswith("exit")):
+        exit()
+    elif(str(userinput).startswith("back") or str(userinput).startswith("quit")): 
         return False
 
     return True
+
+# Prim Menue (nicht eingebaut)
+
+def menueprim(): 
+    pass
 
 # Search String Functions
 
@@ -396,7 +403,6 @@ def searchSafe(stringrechnung, zeichen):
             except ValueError: 
                 print(ConsoleColors.FAIL + "Werte für Speicherung der Variable falsch eingegeben, versuche es erneut!" + ConsoleColors.OKGREEN)
     return stringrechnung
-
 
 def makeSafe(ergebnis, zeichen): 
     global willSafe, zwischenvariable
