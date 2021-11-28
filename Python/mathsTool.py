@@ -161,7 +161,7 @@ def fakultaet(product, base):
 
 def calculator(): 
     stringrechnung = input("Geben sie bitte nun ihre Rechnung an oder schreiben sie " \
-     + ConsoleColors.WARNING + "help/-h " + ConsoleColors.OKGREEN + "für eine Hilfestellung: ") 
+     + ConsoleColors.WARNING + "help/-h " + ConsoleColors.OKGREEN + "für eine Hilfestellung:\n## ") 
     if stringrechnung.startswith("help") or (stringrechnung.startswith("-h") and len(stringrechnung) <= 3): 
         print(calculationhelp())
         return 
