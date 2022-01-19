@@ -1,5 +1,4 @@
 /**
- * 
  * @author Simon Greiderer
  * 
  * Listing multiple sortingfunctions 
@@ -9,12 +8,15 @@
  * 
  * Stable: 		algorithm preserves the order of records with equal keys
  *
+ *
+ * O(n): 		= O notation; is used to describe algorithm to how long / how much
+ * 				space (how many steps) it takes to finish
  */
 public class SortingMethods {
 
 	public static void main(String[] args) {
 		System.out.println("Unsortierte Liste: ");
-		int[] list = { 0, 6, 7, 2, 4, 6, 9, 5, 1 };
+		int[] list = { 0, 6, 7, 2, 4, 6, 9, 5, 1 , 7, 2, 3, 4, 1};
 		String ausgabe = "";
 
 		System.out.println("Sortierte Liste");
@@ -26,7 +28,7 @@ public class SortingMethods {
 
 		System.out.println("Sortieren: ");
 
-		int[] sort = InsertionSort(list);
+		int[] sort = SelectionSort(list);
 		for (int i = 0; i < sort.length; i++) {
 			ausgabe = ausgabe + sort[i] + " ";
 		}
@@ -102,7 +104,6 @@ public class SortingMethods {
 				}
 			}
 		}
-
 		return list;
 	}
 
