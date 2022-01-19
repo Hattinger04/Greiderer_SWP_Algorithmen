@@ -28,7 +28,7 @@ public class SortingMethods {
 
 		System.out.println("Sortieren: ");
 
-		int[] sort = InsertionSort(list);
+		int[] sort = BubbleSort(list);
 		for (int i = 0; i < sort.length; i++) {
 			ausgabe = ausgabe + sort[i] + " ";
 		}
@@ -36,7 +36,6 @@ public class SortingMethods {
 	}
 
 	/**
-	 * 
 	 * In-Place
 	 * Stable
 	 * 
@@ -52,7 +51,7 @@ public class SortingMethods {
 			int j = i-1;
 			while(j >= 0 && list[j] > key) {
 				list[j+1] = list[j];
-				j--; 
+				j--;
 			}
 			list[j+1] = key; 
 		}
@@ -78,9 +77,7 @@ public class SortingMethods {
 				}
 			}
 			if(min_index != i) {
-				int smallerNumber = list[min_index];
-				list[min_index] = list[i];
-				list[i] = smallerNumber;
+				swapValues(list, i, min_index);
 			}
 		}
 		return list;
@@ -98,8 +95,8 @@ public class SortingMethods {
 	 */
 	public static int[] BubbleSort(int[] list) {
 		for (int i = 0; i < list.length; i++) {
-			for (int j = 0; j < list.length; j++) {
-				if (list[j] > list[i]) {
+			for (int j = i + 1; j < list.length; j++) {
+				if (list[j] < list[i]) {
 					swapValues(list, i, j);
 				}
 			}
