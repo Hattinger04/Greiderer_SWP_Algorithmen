@@ -16,7 +16,7 @@ public class SortingMethods {
 
 	public static void main(String[] args) {
 		System.out.println("Unsortierte Liste: ");
-		int[] list = { 0, 6, 7, 2, 4, 6, 9, 5, 1 , 7, 2, 3, 4, 1};
+		int[] list = { 6, 0, 7, 2, 4, 6, 9, 5, 1 , 7, 2, 3, 4, 1};
 		String ausgabe = "";
 
 		System.out.println("Sortierte Liste");
@@ -28,7 +28,7 @@ public class SortingMethods {
 
 		System.out.println("Sortieren: ");
 
-		int[] sort = SelectionSort(list);
+		int[] sort = InsertionSort(list);
 		for (int i = 0; i < sort.length; i++) {
 			ausgabe = ausgabe + sort[i] + " ";
 		}
@@ -49,8 +49,8 @@ public class SortingMethods {
 	public static int[] InsertionSort(int[] list) {
 		for(int i = 0; i < list.length; i++) {
 			int key = list[i]; 
-			int j = i-1; 
-			while(j > 0 && list[j] > key) {
+			int j = i-1;
+			while(j >= 0 && list[j] > key) {
 				list[j+1] = list[j];
 				j--; 
 			}
@@ -113,5 +113,4 @@ public class SortingMethods {
 		list[i] = zwischenwert;
 		return list;
 	}
-
 }
