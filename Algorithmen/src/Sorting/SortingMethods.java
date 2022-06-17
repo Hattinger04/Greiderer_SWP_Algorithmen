@@ -1,10 +1,11 @@
+package Sorting;
 /**
  * @author Simon Greiderer
  * 
  * Listing multiple sortingfunctions 
  * 
- * In-Place: 	algorithm who needs for the storage of the data only a consistent amout of data
- * 				in addition to the safed data which doesn't depend on n
+ * In-Place: 	algorithm who needs for the storage of the data only a consistent amount of data
+ * 				in addition to the saved data which doesn't depend on n
  * 
  * Stable: 		algorithm preserves the order of records with equal keys
  *
