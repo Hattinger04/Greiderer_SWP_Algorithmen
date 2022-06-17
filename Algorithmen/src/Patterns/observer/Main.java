@@ -1,8 +1,5 @@
 package Patterns.observer;
 
-import Patterns.observer.abonnenten.Knubrecht;
-import Patterns.observer.abonnenten.Kunibert;
-
 public class Main {
 
 	public static void main(String[] args) {
