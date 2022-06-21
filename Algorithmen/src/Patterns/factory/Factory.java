@@ -3,19 +3,16 @@ package Patterns.factory;
 public class Factory {
 
 	public Auto createAuto(Autos auto) {
-		Auto a; 
 		switch (auto) {
 		case VW:
-			a = new VW();
-			break;
+			return new VW();
 		case Audi: 
-			a = new Audi(); 
-			break; 
+			return new Audi(); 
 		default:
-			a = new VW(); 
-			break;
+			return null; 
+			// or return new VW(); 
+			// or throw new Exception("How did you do that?"); 
 		}
-		return a; 
 	}
 	
 	
